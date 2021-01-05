@@ -7,17 +7,13 @@ const mockRequest = supertest(server);
 describe('404 Error Handling', () => {
 
   it('should respond with a 404 on an invalid route', async () => {
-
     const results = await mockRequest.get('/invalid');
     expect(results.status).toBe(404);
-
   });
 
   it('should respond with a 404 on an invalid method', async () => {
-
     const results = await mockRequest.post('/');
     expect(results.status).toBe(404);
-
   });
 
 
@@ -34,20 +30,16 @@ describe.skip('500 Error Handling', () => {
 
 });
 
-describe.skip('200 Happy Path Handling', () => {
+describe('200 Happy Path Handling', () => {
 
   it('should respond with a 200 on a proper request to /shoot', async () => {
-
     const results = await mockRequest.get('/shoot');
     expect(results.status).toBe(200);
-
   });
 
   it('should respond with a 200 on a proper request to /leaderboard', async () => {
-
     const results = await mockRequest.get('/leaderboard');
     expect(results.status).toBe(200);
-
   });
 
 
