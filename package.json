@@ -1,0 +1,19 @@
+{
+  "name": "roshambo",
+  "version": "1.0.0",
+  "description": "Rock paper scissors game for Carina take-home assignment",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --verbose --coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TiaLow/roshambo.git"
+  },
+  "author": "Tia Low",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/TiaLow/roshambo/issues"
+  },
+  "homepage": "https://github.com/TiaLow/roshambo#readme"
+}
