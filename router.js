@@ -25,17 +25,11 @@ function handleTurn(req, res) {
 
   const roshambo = ['rock', 'paper', 'scissors'];
 
-  console.log('query params:  ', req.query);
-
   // deconstructing the req.query obj to grab the player name and play from the query params
   const { player_name, play } = req.query;
 
+  // randomizing the app's play
   let appPlay = roshambo[Math.floor(Math.random() * roshambo.length)];
-
-  console.log('users play:  ', play);
-
-  console.log('computers play:  ', appPlay);
-
 
   switch(play) {
 
@@ -68,6 +62,9 @@ function handleTurn(req, res) {
       res.status(200).send(`${player_name} wins this round`);
     }
     break;
+  
+  default:
+    res.status(404).send('Unknown play, please ro-sham-bo again.');
   }
 
   
