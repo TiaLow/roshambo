@@ -22,87 +22,105 @@ router.get('/leaderboard', handleLeaderboard);
 // ------ ROUTE HANDLERS
 
 function renderHome(req, res) {
-  
-  res.status(200).send('Let\'s ROSHAMBO!');
+
+  try {
+
+    const welcomeMessage = 'Let\'s ROSHAMBO! Please make your play by typing \'/shoot?player_name=YOUR_NAME&play=YOUR_PLAY\' at the end of the URI above. Acceptable plays are \'rock\', \'paper\', or \'scissors\'. Ro-sham-bo-GO!';
+
+    res.status(200).send(welcomeMessage);
+
+  } catch(err) {
+
+    console.log(err);
+
+  }
   
 }
 
 function handleTurn(req, res) {
-
-  // deconstructing the req.query obj to grab the player name and play from the query params
-  const { player_name, play } = req.query;
   
-  // assigning global var to use later in leaderboard
-  currentPlayer = player_name;
-
-  // getting the app's move from the randomizer module
-  const appPlay = randomizer.randomizer();
-
-  console.log('appPlay :  ', appPlay)
-  switch(play) {
-
-  case 'rock':
-    if (appPlay === 'rock'){
-      res.status(200).send(`${player_name} ties this round`);
-    } else if (appPlay === 'paper'){
-      appScore++;
-      res.status(200).send(`${player_name} loses this round`);
-    } else {
-      userScore++;
-      res.status(200).send(`${player_name} wins this round`);
-    }
-    break;
-
-  case 'paper':
-    if (appPlay === 'paper'){
-      res.status(200).send(`${player_name} ties this round`);
-    } else if (appPlay === 'scissors'){
-      appScore++;
-      res.status(200).send(`${player_name} loses this round`);
-    } else {
-      userScore++;
-      res.status(200).send(`${player_name} wins this round`);
-    }
-    break;
-
-  case 'scissors':
-    if (appPlay === 'scissors'){
-      res.status(200).send(`${player_name} ties this round`);
-    } else if (appPlay === 'rock'){
-      appScore++;
-      res.status(200).send(`${player_name} loses this round`);
-    } else {
-      userScore++;
-      res.status(200).send(`${player_name} wins this round`);
-    }
-    break;
+  try {
+    
+    // deconstructing the req.query obj to grab the player name and play from the query params
+    const { player_name, play } = req.query;
+    
+    // assigning global var to use later in leaderboard
+    currentPlayer = player_name;
   
-  default:
-    res.status(404).send('Unknown play, please ro-sham-bo again.');
+    // getting the app's move from the randomizer module
+    const appPlay = randomizer.randomizer();
+  
+    switch(play) {
+  
+    case 'rock':
+      if (appPlay === 'rock'){
+        res.status(200).send(`${player_name} ties this round`);
+      } else if (appPlay === 'paper'){
+        appScore++;
+        res.status(200).send(`${player_name} loses this round`);
+      } else {
+        userScore++;
+        res.status(200).send(`${player_name} wins this round`);
+      }
+      break;
+  
+    case 'paper':
+      if (appPlay === 'paper'){
+        res.status(200).send(`${player_name} ties this round`);
+      } else if (appPlay === 'scissors'){
+        appScore++;
+        res.status(200).send(`${player_name} loses this round`);
+      } else {
+        userScore++;
+        res.status(200).send(`${player_name} wins this round`);
+      }
+      break;
+  
+    case 'scissors':
+      if (appPlay === 'scissors'){
+        res.status(200).send(`${player_name} ties this round`);
+      } else if (appPlay === 'rock'){
+        appScore++;
+        res.status(200).send(`${player_name} loses this round`);
+      } else {
+        userScore++;
+        res.status(200).send(`${player_name} wins this round`);
+      }
+      break;
+    
+    default:
+      res.status(404).send('Unknown play, please ro-sham-bo again.');
+    }
+
+  } catch(err) {
+
+    console.log(err);
+
   }
-
-  console.log('user score:   ', userScore);
-  console.log('app score:  ', appScore);
 
 }
 
 function handleLeaderboard(req, res) {
 
-  let leaderboard = [{
-    name: currentPlayer,
-    score: userScore,
-  }, {
-    name: 'Computer',
-    score: appScore,
-  }];
+  try {
 
-  console.log('leaderboard:   ', leaderboard);
-
-  leaderboard.sort((a,b) => (a.score > b.score) ? -1 : 1);
-
-  console.log('leaderboard sorted:  ', leaderboard);
+    let leaderboard = [{
+      name: currentPlayer,
+      score: userScore,
+    }, {
+      name: 'Computer',
+      score: appScore,
+    }];
   
-  res.status(200).send(leaderboard);
+    leaderboard.sort((a,b) => (a.score > b.score) ? -1 : 1);
+    
+    res.status(200).json(leaderboard);
+
+  } catch (err) {
+
+    console.log(err);
+
+  }
 
 }
 
