@@ -36,6 +36,9 @@
 - **Jest** for testing framework
 - **Supertest** for testing HTTP requests
 
+## Resources
+- Re testing: https://pawelgrzybek.com/mocking-functions-and-modules-with-jest/
+
 ## License
 MIT &copy; TiaLow
 

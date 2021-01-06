@@ -36,8 +36,9 @@ function handleTurn(req, res) {
   currentPlayer = player_name;
 
   // getting the app's move from the randomizer module
-  const appPlay = randomizer();
+  const appPlay = randomizer.randomizer();
 
+  console.log('appPlay :  ', appPlay)
   switch(play) {
 
   case 'rock':
