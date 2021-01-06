@@ -131,10 +131,17 @@ function handleLeaderboard(req, res) {
 
     let sql = 'SELECT * FROM leaderboard;';
 
-      client.query(sql)
+    client.query(sql)
       .then(result => {
-        console.log('EVERYTHING:  ', result.rows);
+
+        let leaderboard = result.rows;
+
+        leaderboard.sort((a,b) => (a.score > b.score) ? -1 : 1);
+
+        res.status(200).json(leaderboard);
+        
       });
+      
 
     // let leaderboard = [{
     //   name: currentPlayer,
@@ -144,11 +151,6 @@ function handleLeaderboard(req, res) {
     //   score: appScore,
     // }];
   
-    // leaderboard.sort((a,b) => (a.score > b.score) ? -1 : 1);
-
-    let leaderboard = 'hi';
-    
-    res.status(200).json(leaderboard);
 
   } catch (err) {
 
