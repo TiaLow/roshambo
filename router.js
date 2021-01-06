@@ -95,8 +95,12 @@ function handleLeaderboard(req, res) {
   }];
 
   console.log('leaderboard:   ', leaderboard);
+
+  leaderboard.sort((a,b) => (a.score > b.score) ? -1 : 1);
+
+  console.log('leaderboard sorted:  ', leaderboard);
   
-  res.status(200).send('This will be the sorted list of high scores.');
+  res.status(200).send(leaderboard);
 
 }
 
