@@ -2,12 +2,17 @@
 
 const express = require('express');
 const router = express.Router();
+require('dotenv').config();
+
+const pg = require('pg');
+const client = new pg.Client(process.env.DATABASE_URL);
+client.connect();
 
 let randomizer = require ('./playRandomizer.js');
 
 // ------ GLOBAL VARS
 
-let currentPlayer;
+// let currentPlayer;
 let userScore = 0;
 let appScore = 0;
 
@@ -45,8 +50,13 @@ function handleTurn(req, res) {
     const { player_name, play } = req.query;
     
     // assigning global var to use later in leaderboard
-    currentPlayer = player_name;
-  
+    // currentPlayer = player_name;
+
+    // saving player name to database
+    let sql = 'INSERT INTO leaderboard (name) VALUES ($1);';
+    let safeValue = [player_name];
+    client.query(sql, safeValue);
+
     // getting the app's move from the randomizer module
     const appPlay = randomizer.randomizer();
   
@@ -60,6 +70,11 @@ function handleTurn(req, res) {
         res.status(200).send(`${player_name} loses this round`);
       } else {
         userScore++;
+
+        let sql = 'UPDATE leaderboard SET score=$1 WHERE name=$2;';
+        let safeValues = [userScore, player_name];
+        client.query(sql, safeValues);
+
         res.status(200).send(`${player_name} wins this round`);
       }
       break;
@@ -72,6 +87,11 @@ function handleTurn(req, res) {
         res.status(200).send(`${player_name} loses this round`);
       } else {
         userScore++;
+
+        let sql = 'UPDATE leaderboard SET score=$1 WHERE name=$2;';
+        let safeValues = [userScore, player_name];
+        client.query(sql, safeValues);
+
         res.status(200).send(`${player_name} wins this round`);
       }
       break;
@@ -84,6 +104,11 @@ function handleTurn(req, res) {
         res.status(200).send(`${player_name} loses this round`);
       } else {
         userScore++;
+
+        let sql = 'UPDATE leaderboard SET score=$1 WHERE name=$2;';
+        let safeValues = [userScore, player_name];
+        client.query(sql, safeValues);
+
         res.status(200).send(`${player_name} wins this round`);
       }
       break;
@@ -104,17 +129,28 @@ function handleLeaderboard(req, res) {
 
   try {
 
-    let leaderboard = [{
-      name: currentPlayer,
-      score: userScore,
-    }, {
-      name: 'Computer',
-      score: appScore,
-    }];
+    let sql = 'SELECT * FROM leaderboard;';
+
+    client.query(sql)
+      .then(result => {
+
+        let leaderboard = result.rows;
+
+        leaderboard.sort((a,b) => (a.score > b.score) ? -1 : 1);
+
+        res.status(200).json(leaderboard);
+        
+      });
+      
+
+    // let leaderboard = [{
+    //   name: currentPlayer,
+    //   score: userScore,
+    // }, {
+    //   name: 'Computer',
+    //   score: appScore,
+    // }];
   
-    leaderboard.sort((a,b) => (a.score > b.score) ? -1 : 1);
-    
-    res.status(200).json(leaderboard);
 
   } catch (err) {
 

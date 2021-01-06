@@ -13,6 +13,8 @@
 - Change directory into the root level
 - Touch a .env file, add your PORT
   - see .envSamples for an example
+- Create database on local machine and add DATABASE_URL to .env
+  - see .envSamples for an example
 - While still in root folder, **node .** to start the server
   - can also use the command **nodemon** if installed on your local machine
 - On a browser window, navigate to `http://localhost:<PORT>` with the same port number you used
@@ -37,6 +39,7 @@
 ## Technologies and Tools Used
 - **Express** for basic server structure
 - **Dotenv** to store environment variables like PORT
+- **pg** for PostgreSQL client
 - **Jest** for testing framework
 - **Supertest** for testing HTTP requests
 
