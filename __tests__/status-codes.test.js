@@ -4,6 +4,8 @@ const { server } = require('../server.js');
 const supertest = require('supertest');
 const mockRequest = supertest(server);
 
+const errorHandler500 = require('../middleware/500.js')
+
 describe('404 Error Handling', () => {
 
   it('should respond with a 404 on an invalid route', async () => {
@@ -19,12 +21,25 @@ describe('404 Error Handling', () => {
 
 });
 
-describe.skip('500 Error Handling', () => {
+describe('500 Error Handling', () => {
+
+  let err = {message: '500 server error'};
+  let req = {};
+  let res = {
+    status: jest.fn(),
+    statusMessage: '',
+    json: jest.fn(),
+  };
+  let next = jest.fn();
 
   it('should respond with a 500 on an internal server error', () => {
+    errorHandler500(err, req, res, next);
+    expect(res.status).toHaveBeenCalledWith(500);
+  });
 
-    // need to mock a fake server error here... how?? 
-
+  it('should respond with proper json', () => {
+    errorHandler500(err, req, res, next);
+    expect(res.json).toHaveBeenCalledWith( {error: {message: '500 server error'}});
   });
 
 
