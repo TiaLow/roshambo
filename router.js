@@ -3,6 +3,8 @@
 const express = require('express');
 const router = express.Router();
 
+let randomizer = require ('./playRandomizer.js');
+
 // ------ GLOBAL VARS
 
 let currentPlayer;
@@ -32,14 +34,8 @@ function handleTurn(req, res) {
   
   // assigning global var to use later in leaderboard
   currentPlayer = player_name;
-  
-  // internal function to randomize the app's play  
-  let randomizer = () => {
-    const roshambo = ['rock', 'paper', 'scissors'];
 
-    return roshambo[Math.floor(Math.random() * roshambo.length)];
-  };
-
+  // getting the app's move from the randomizer module
   const appPlay = randomizer();
 
   switch(play) {

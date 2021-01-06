@@ -4,7 +4,7 @@ const { server } = require('../server.js');
 const supertest = require('supertest');
 const mockRequest = supertest(server);
 
-const errorHandler500 = require('../middleware/500.js')
+const errorHandler500 = require('../middleware/500.js');
 
 describe('404 Error Handling', () => {
 
@@ -17,7 +17,6 @@ describe('404 Error Handling', () => {
     const results = await mockRequest.post('/');
     expect(results.status).toBe(404);
   });
-
 
 });
 
@@ -42,7 +41,6 @@ describe('500 Error Handling', () => {
     expect(res.json).toHaveBeenCalledWith( {error: {message: '500 server error'}});
   });
 
-
 });
 
 describe('200 Happy Path Handling', () => {
@@ -56,7 +54,6 @@ describe('200 Happy Path Handling', () => {
     const results = await mockRequest.get('/leaderboard');
     expect(results.status).toBe(200);
   });
-
 
 });
 
