@@ -14,10 +14,11 @@
 - Touch a .env file, add your PORT
   - see .envSamples for an example
 - While still in root folder, **node .** to start the server
-  - can also use the command **nodemon** if installed
+  - can also use the command **nodemon** if installed on your local machine
 - On a browser window, navigate to `http://localhost:<PORT>` with the same port number you used
-- You'll be playing against the app, and you'll make the plays directly through the uri using your name and your play. Use the below as an example:
+- You'll be playing against the app, and you'll make the plays directly through the URI using your name and your play. Use the below as an example:
   - `http://localhost:<PORT>/shoot?player_name=<your_name>&play=<your_play>`
+  - `http://localhost:<PORT>/shoot?player_name=Tia&play=scissors`
   - **play** should be either 'rock', 'paper', or 'scissors'
 - The app chooses it's play at random, and then you'll see the result of the round in the response to the page
 - If you're curious about the score standing, you can navigate to `http://localhost:<PORT>/leaderboard` to see your and the app's score, sorted by descending order
@@ -26,9 +27,12 @@
 - In the root folder, run **npm test**
 - Can also run **npm test \<file_name\>** to test specific files
 
-
 ## API Reference
+### \shoot?player_name=\<your_name\>&play=\<your_play\>
+- replace the variable with your name and your desired play (rock, paper, or scissors)
 
+### \leaderboard
+- use this endpoint at any time to see the score of player vs app
 
 ## Technologies and Tools Used
 - **Express** for basic server structure

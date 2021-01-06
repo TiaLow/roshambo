@@ -25,7 +25,7 @@ function renderHome(req, res) {
 
   try {
 
-    const welcomeMessage = 'Let\'s ROSHAMBO! Please make your play by typing \'/shoot?player_name=YOUR_NAME&play=YOUR_PLAY\' at the end of the URI above. Acceptable plays are \'rock\', \'paper\', or \'scissors\'. Ro-sham-bo-GO!';
+    const welcomeMessage = 'Let\'s ROSHAMBO! Please make your play by typing \'/shoot?player_name=YOUR_NAME&play=YOUR_PLAY\' at the end of the URI above. Acceptable plays are \'rock\', \'paper\', or \'scissors\'. Type \'/leaderboard\' at any time to see current score. Ro-sham-bo-GO!';
 
     res.status(200).send(welcomeMessage);
 
@@ -123,8 +123,6 @@ function handleLeaderboard(req, res) {
   }
 
 }
-
-
 
 
 module.exports = router;
