@@ -27,15 +27,20 @@ function renderHome(req, res) {
 
 function handleTurn(req, res) {
 
-  const roshambo = ['rock', 'paper', 'scissors'];
-
   // deconstructing the req.query obj to grab the player name and play from the query params
   const { player_name, play } = req.query;
-
+  
+  // assigning global var to use later in leaderboard
   currentPlayer = player_name;
+  
+  // internal function to randomize the app's play  
+  let randomizer = () => {
+    const roshambo = ['rock', 'paper', 'scissors'];
 
-  // randomizing the app's play
-  let appPlay = roshambo[Math.floor(Math.random() * roshambo.length)];
+    return roshambo[Math.floor(Math.random() * roshambo.length)];
+  };
+
+  const appPlay = randomizer();
 
   switch(play) {
 
