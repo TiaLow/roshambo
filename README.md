@@ -37,6 +37,7 @@
 ## Technologies and Tools Used
 - **Express** for basic server structure
 - **Dotenv** to store environment variables like PORT
+- **pg** for PostgreSQL client
 - **Jest** for testing framework
 - **Supertest** for testing HTTP requests
 

@@ -70,6 +70,11 @@ function handleTurn(req, res) {
         res.status(200).send(`${player_name} loses this round`);
       } else {
         userScore++;
+
+        let sql = 'UPDATE leaderboard SET score=$1 WHERE name=$2;';
+        let safeValues = [userScore, player_name];
+        client.query(sql, safeValues);
+
         res.status(200).send(`${player_name} wins this round`);
       }
       break;
@@ -82,6 +87,11 @@ function handleTurn(req, res) {
         res.status(200).send(`${player_name} loses this round`);
       } else {
         userScore++;
+
+        let sql = 'UPDATE leaderboard SET score=$1 WHERE name=$2;';
+        let safeValues = [userScore, player_name];
+        client.query(sql, safeValues);
+
         res.status(200).send(`${player_name} wins this round`);
       }
       break;
@@ -94,6 +104,11 @@ function handleTurn(req, res) {
         res.status(200).send(`${player_name} loses this round`);
       } else {
         userScore++;
+
+        let sql = 'UPDATE leaderboard SET score=$1 WHERE name=$2;';
+        let safeValues = [userScore, player_name];
+        client.query(sql, safeValues);
+
         res.status(200).send(`${player_name} wins this round`);
       }
       break;
@@ -114,14 +129,11 @@ function handleLeaderboard(req, res) {
 
   try {
 
-    let sql = 'SELECT name FROM leaderboard;';
-  
+    let sql = 'SELECT * FROM leaderboard;';
 
-    // console.log('sql query:  ', sql);
-
-    client.query(sql)
+      client.query(sql)
       .then(result => {
-        console.log('result in sql query:  ', result);
+        console.log('EVERYTHING:  ', result.rows);
       });
 
     // let leaderboard = [{
