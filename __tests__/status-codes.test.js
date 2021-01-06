@@ -23,7 +23,7 @@ describe.skip('500 Error Handling', () => {
 
   it('should respond with a 500 on an internal server error', () => {
 
-    // need to stub a fake error here 
+    // need to mock a fake server error here... how?? 
 
   });
 
@@ -33,7 +33,7 @@ describe.skip('500 Error Handling', () => {
 describe('200 Happy Path Handling', () => {
 
   it('should respond with a 200 on a proper request to /shoot', async () => {
-    const results = await mockRequest.get('/shoot');
+    const results = await mockRequest.get('/shoot?player_name=null&play=rock');
     expect(results.status).toBe(200);
   });
 
